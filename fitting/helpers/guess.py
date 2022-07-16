@@ -1,5 +1,5 @@
 import numpy as np
-from .filter import filter
+from .filter import smooth
 
 
 def peak(x: np.array, y: np.array) -> list[float]:
@@ -9,10 +9,10 @@ def peak(x: np.array, y: np.array) -> list[float]:
     y = y * bias
     peak_indx = np.argmax(y)
     height = y[peak_indx]*bias - offset
-    return [height, FWHM(x, y, peak_indx, np.abs(offset), np.abs(height)), offset, x[peak_indx]]
+    return [height, fwhm(x, y, peak_indx, np.abs(offset), np.abs(height)), offset, x[peak_indx]]
 
 
-def FWHM(x: np.array, y: np.array, peak_index: int, offset: float, height: float) -> float:
+def fwhm(x: np.array, y: np.array, peak_index: int, offset: float, height: float) -> float:
     try: fwhm_l = x[:peak_index][y[:peak_index] < offset + height / 2][-1]
     except IndexError: fwhm_l = x[0]
     try: fwhm_h = x[peak_index:][y[peak_index:] < offset + height / 2][0]

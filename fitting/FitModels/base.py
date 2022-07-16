@@ -4,7 +4,8 @@ from scipy.optimize import curve_fit
 from inspect import signature
 from ..helpers import dataclass
 
-class BaseFitModel():
+
+class BaseFitModel:
     def __call__(self, x: np.array, *args):
         return self.function(x, *args)
 
@@ -41,8 +42,7 @@ class BaseFitModel():
         return noise * np.random.randn(x.size) + cls.function(x, *args)
 
     @classmethod
-    def parameters(cls) -> list[str]: return list(signature(cls.function).parameters.keys())[1:] #todo explain
+    def parameters(cls) -> list[str]: return list(signature(cls.function).parameters.keys())[1:]  # todo explain
 
     @classmethod
     def dataclass(cls): return dataclass.factory(cls.__name__, cls.parameters())
-

@@ -1,5 +1,6 @@
 from ..dataclass import *
 
+
 def test_dataclass():
     test_dc = factory('test', ['a', 'b', 'c'])
     instance = test_dc(Parameter(1, 0), Parameter(3, 2), Parameter(5, 2.3))
