@@ -1,3 +1,3 @@
-from . import FitModels
 from . import helpers
-from .fitting import Fitting
+from . import FitModels
+from .fit import Fitting

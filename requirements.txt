@@ -1,4 +1,5 @@
 numpy
 scipy
 dataclasses_json
+matplotlib
 pytest

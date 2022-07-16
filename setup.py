@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(name='fitting',
       version='0.0.1',
@@ -7,9 +7,12 @@ setup(name='fitting',
       author='Brandur Thorgrimsson',
       author_email='Brandur_thorn@me.com',
       license='MIT',
-      packages=['fitting'],
+      packages=find_packages(),
       install_requires=[
-          'numpy',
-          'scipy',
+            'numpy',
+            'scipy',
+            'dataclasses_json',
+            'matplotlib'
       ],
+      package_dir={'fitting': 'fitting'},
       zip_safe=False)

@@ -1,4 +1,4 @@
-from ..dataclasses import *
+from ..dataclass import *
 
 def test_dataclass():
     test_dc = factory('test', ['a', 'b', 'c'])

@@ -1,14 +1,15 @@
 import numpy as np
 from typing import Union
 from scipy.optimize import curve_fit
-
+from inspect import signature
+from ..helpers import dataclass
 
 class BaseFitModel():
-    def __call__(self, x: np.array, *args: list[float]):
+    def __call__(self, x: np.array, *args):
         return self.function(x, *args)
 
     @classmethod
-    def function(cls, x: np.array, *args: list[float]) -> np.array:
+    def function(cls, x: np.array, *args) -> np.array:
         raise NotImplementedError("Each FitModel should implement its own function")
 
     @classmethod
@@ -36,5 +37,12 @@ class BaseFitModel():
         return popt, np.sqrt(np.diag(pcov)), pcov
 
     @classmethod
-    def generate_noisy_data(cls, noise: float, x: np.array, *args: list[float]) -> np.array:
+    def generate_noisy_data(cls, noise: float, x: np.array, *args) -> np.array:
         return noise * np.random.randn(x.size) + cls.function(x, *args)
+
+    @classmethod
+    def parameters(cls) -> list[str]: return list(signature(cls.function).parameters.keys())[1:] #todo explain
+
+    @classmethod
+    def dataclass(cls): return dataclass.factory(cls.__name__, cls.parameters())
+

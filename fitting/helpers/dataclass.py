@@ -18,7 +18,7 @@ def factory(name: str, attributes:list[str]):
     def _parameters(self) -> list[float]: return [key for key in self.to_dict().keys()]
 
     def _to_text(self, format: str= "") -> str:
-        return "\n".join([f'\t{param}: {getattr(self, param).to_text(format)}' for param in self.__annotations__.keys()])
+        return "\n".join([f'  {param}: {getattr(self, param).to_text(format)}' for param in self.__annotations__.keys()])
     fields = [(attr, Parameter) for attr in attributes]
     namespace = {"values": _values, "errors": _errors, "parameters": _parameters, "to_text": _to_text}
     return dataclass_json(make_dataclass(name, fields, namespace=namespace))
