@@ -1,6 +1,6 @@
 import pytest
 
-from ... import FitModels
+from .. import Linear
 import numpy as np
 
 
@@ -15,8 +15,8 @@ def check_model_fit(model, noise, x_0, x_1, x_n, *args):
 
 
 def test_linear_fit():
-    check_model_fit(FitModels.Linear(), 1, 10, 20, 1000, 5, 11)
-    check_model_fit(FitModels.Linear(), 1, 10, 20, 1000, -5, 11)
-    check_model_fit(FitModels.Linear(), 1, -20, -10, 1000, 0, 11)
-    check_model_fit(FitModels.Linear(), 5, -20, -10, 1000, 0, 11)
-    check_model_fit(FitModels.Linear(), 5, -20, -10, 1000, 4, 11)
+    check_model_fit(Linear(), 1, 10, 20, 1000, 5, 11)
+    check_model_fit(Linear(), 1, 10, 20, 1000, -5, 11)
+    check_model_fit(Linear(), 1, -20, -10, 1000, 0, 11)
+    check_model_fit(Linear(), 5, -20, -10, 1000, 0, 11)
+    check_model_fit(Linear(), 5, -20, -10, 1000, 4, 11)

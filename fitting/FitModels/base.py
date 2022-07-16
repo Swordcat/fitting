@@ -1,8 +1,7 @@
 import numpy as np
-from dataclasses import dataclass
-from dataclasses_json import dataclass_json
-from typing import Union, Callable
+from typing import Union
 from scipy.optimize import curve_fit
+
 
 class BaseFitModel():
     def __call__(self, x: np.array, *args: list[float]):

@@ -5,8 +5,8 @@ import numpy as np
 class Linear(BaseFitModel):
 
     @classmethod
-    def function(cls, x: np.array, *args: list[float]) -> np.array:
-        return args[0] * x + args[1]
+    def function(cls, x: np.array, a: float, b: float) -> np.array:
+        return a * x + b
 
     @classmethod
     def guess(cls, x: np.array, y: np.array) -> list[float]:
