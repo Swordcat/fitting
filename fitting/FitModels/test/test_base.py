@@ -18,3 +18,4 @@ def test_name():
 def test_parameters():
     assert BaseFitModel.parameters() == ['args']
     assert Linear().parameters() == ['a', 'b']
+    assert Polynomial(order=4)().parameters() == ['a_0', 'a_1', 'a_2', 'a_3', 'a_4']

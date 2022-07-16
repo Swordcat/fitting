@@ -1,5 +1,4 @@
-import pytest
-
+from .. import Fermi
 from .. import Linear
 from .. import Polynomial
 import numpy as np
@@ -31,3 +30,12 @@ def test_polynomial_fit():
     check_model_fit(Polynomial(order=2)(), 1, -20, 20, 1000, 1, 2, 3)
     for i in range(2, 7):
         check_model_fit(Polynomial(order=i)(), 1, -20, 20, 1000, *list((np.arange(i+1))+1))
+
+
+def test_fermi_fit():
+    check_model_fit(Fermi(), 0.2, -20, 20, 1000, 0.8, 2, 0.1, 5)
+    check_model_fit(Fermi(), 0.2, -20, 20, 1000, -0.8, 2, 0.1, -5)
+    check_model_fit(Fermi(), 0.2, -20, 20, 1000, -0.8, 2, 10, -5)
+    check_model_fit(Fermi(), 0.3, -20, 20, 1000, -0.8, 2, 10, -5)
+    check_model_fit(Fermi(), 3, -20, 20, 1000, 10, 4, 10, -5)
+
