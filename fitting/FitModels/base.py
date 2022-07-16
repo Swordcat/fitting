@@ -6,6 +6,9 @@ from ..helpers import dataclass
 
 
 class BaseFitModel:
+    def __init__(self, name:str = None):
+        self.name = name if name else self._classname()
+
     def __call__(self, x: np.array, *args):
         return self.function(x, *args)
 
@@ -44,5 +47,7 @@ class BaseFitModel:
     @classmethod
     def parameters(cls) -> list[str]: return list(signature(cls.function).parameters.keys())[1:]  # todo explain
 
+    def dataclass(self): return dataclass.factory(self.name, self.parameters())
+
     @classmethod
-    def dataclass(cls): return dataclass.factory(cls.__name__, cls.parameters())
+    def _classname(cls): return cls.__name__

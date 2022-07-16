@@ -1,9 +1,10 @@
-from .FitModels import BaseFitModel
-from .FitModels import Linear
+from .FitModels import BaseFitModel, Linear, Polynomial
+
 
 REGISTERED_MODELS = [
     BaseFitModel,
-    Linear
+    Linear,
+    Polynomial()
 ]
 
 

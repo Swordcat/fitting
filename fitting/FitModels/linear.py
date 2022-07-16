@@ -3,7 +3,6 @@ import numpy as np
 
 
 class Linear(BaseFitModel):
-
     @classmethod
     def function(cls, x: np.array, a: float, b: float) -> np.array:
         return a * x + b

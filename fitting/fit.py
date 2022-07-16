@@ -11,7 +11,7 @@ class Fitting:
     def __init__(self, model: Union[BaseFitModel, str],
                  guess: list[float] = None,
                  bounds: Union[tuple[float, float], tuple[list[float], list[float]]] = None):
-        self.model = model if isinstance(model, BaseFitModel) else model_registry.get(model)
+        self.model = model if isinstance(model, BaseFitModel) else model_registry.get(model)()
         self.guess = guess
         self.bounds = bounds
         self.result = None
