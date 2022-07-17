@@ -2,6 +2,7 @@ from numpy import array
 from os import getcwd
 from typing import Union
 import matplotlib.pyplot as plt
+from json import dump
 
 from .FitModels import BaseFitModel
 from .helpers.dataclass import Parameter
@@ -32,21 +33,28 @@ class Fitting:
         if self.result is not None: plt.plot(x, self.model.function(x, *self.result.values()), label=f'Fit:\n{self.result.to_text(".3e")}')
         plt.plot(x, self.model.function(x, *self.guess), 'C3', label='guess')
         plt.legend()
+        if save: self.save_figure()
         if show: plt.show()
-        if save: return self.save_figure()
 
-    def save_figure(self, xlabel:str = None, ylabel:str = None, title:str = None, path:str = '', name: str = ''):
+    def save_figure(self, xlabel: str = None, ylabel: str = None, title: str = None, path: str = '', name: str = '') -> str:
         plt.figure(self.model.name)
         if xlabel: plt.xlabel(xlabel)
         if ylabel: plt.ylabel(ylabel)
         if title: plt.title(title)
         plt.tight_layout()
-        file_path = f"{path if path else getcwd()}/{name if name else self.model.name}.png"
+        file_path = f"{self._filepath(path, name)}.png"
         plt.savefig(file_path, dpi=150)
         return file_path
+
+    def save_result(self, path: str = '', name: str = ''):
+        dump({'model': self.model.name, "result": self.result.to_dict()},
+             open(f'{self._filepath(path, name)}.json', 'w'), indent=4)
 
     def _guess(self, x: array, y: array):
         self.guess = self.guess if self.guess else self.model.guess(x, y)
 
     def _bounds(self, x: array, y: array):
         self.bounds = self.bounds if self.bounds else self.model.bounds(x, y)
+
+    def _filepath(self, path: str, name: str) -> str:
+        return f"{path if path else getcwd()}/{name if name else self.model.name}"
