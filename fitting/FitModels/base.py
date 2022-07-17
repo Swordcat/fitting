@@ -3,6 +3,7 @@ from typing import Union
 from scipy.optimize import curve_fit
 from inspect import signature
 from ..helpers import dataclass
+from ..helpers.guess import peak
 
 
 class BaseFitModel:
@@ -51,3 +52,14 @@ class BaseFitModel:
 
     @classmethod
     def _classname(cls): return cls.__name__
+
+
+class BasePeakFit(BaseFitModel):
+    @classmethod
+    def guess(cls, x: array, y: array):
+        height, fwhm, offset, location = peak(x, y)
+        return height, fwhm, offset, location
+
+    @classmethod
+    def bounds(cls, x: array, y: array, guess: list[float] = None) -> Union[tuple[float, float], tuple[list[float], list[float]]]:
+        return [-inf, 0, -inf, -inf], [inf, inf, inf, inf]

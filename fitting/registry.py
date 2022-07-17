@@ -1,4 +1,4 @@
-from .FitModels import BaseFitModel, Fermi, Gaussian, Linear, Lorentzian, Polynomial
+from .FitModels import Fermi, Gaussian, Linear, Lorentzian, InvCoshSq, Polynomial
 
 
 REGISTERED_MODELS = [
@@ -6,6 +6,7 @@ REGISTERED_MODELS = [
     Gaussian,
     Linear,
     Lorentzian,
+    InvCoshSq,
     Polynomial()
 ]
 
