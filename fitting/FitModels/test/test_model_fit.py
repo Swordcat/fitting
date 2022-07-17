@@ -1,3 +1,4 @@
+from .. import Exponential
 from .. import Fermi
 from .. import Gaussian
 from .. import InvCoshSq
@@ -88,3 +89,9 @@ def test_singaussdecay_fit():
     check_model_fit(SinGaussDecay(), 0.1, 0, 40, 1000, 0.8, 2, 10 % (2*np.pi), -5, 8)
     check_model_fit(SinGaussDecay(), 0.1, 0, 40, 1000, 0.8, 10, 10 % (2*np.pi), -5, 3)
     check_model_fit(SinGaussDecay(), 3.0, 0, 40, 1000, 10, 4, 10 % (2*np.pi), -5, 6)
+
+
+def test_exponential_fit():
+    check_model_fit(Exponential(), 0.2, 0, 40, 1000, 10, 14, 1)
+    check_model_fit(Exponential(), 1, 0, 40, 1000, 10, 1, -2)
+    check_model_fit(Exponential(), 1, 0, 40, 1000, 10, 1, 1)

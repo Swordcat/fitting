@@ -1,4 +1,5 @@
 from .base import BaseFitModel
+from .exponentials import Exponential
 from .fermi import Fermi
 from .gaussian import Gaussian
 from .invcoshsq import InvCoshSq

@@ -20,8 +20,8 @@ class Oscillation(BaseFitModel):
 
 class SinExpDecay(BaseFitModel):
     @classmethod
-    def function(cls, x: array, amplitude: float, frequency: float, phase: float, offset: float, decay: float):
-        return offset + amplitude * sin(2*pi*frequency * x + phase) * exp(-x/decay)
+    def function(cls, x: array, amplitude: float, frequency: float, phase: float, offset: float, decay_time: float):
+        return offset + amplitude * sin(2*pi*frequency * x + phase) * exp(-x/decay_time)
 
     @classmethod
     def guess(cls, x: array, y: array):
@@ -34,8 +34,8 @@ class SinExpDecay(BaseFitModel):
 
 class SinGaussDecay(SinExpDecay):
     @classmethod
-    def function(cls, x: array, amplitude: float, frequency: float, phase: float, offset: float, decay: float):
-        return offset + amplitude * sin(2*pi*frequency * x + phase) * exp(-power(x/decay, 2))
+    def function(cls, x: array, amplitude: float, frequency: float, phase: float, offset: float, decay_time: float):
+        return offset + amplitude * sin(2*pi*frequency * x + phase) * exp(-power(x/decay_time, 2))
 
     @classmethod
     def guess(cls, x: array, y: array):

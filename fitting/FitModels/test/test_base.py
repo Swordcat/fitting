@@ -25,6 +25,6 @@ def test_parameters():
     assert Oscillation().parameters() == ['amplitude', 'frequency', 'phase', 'offset']
     for i in range(2,7):
         assert Polynomial(order=i)().parameters() == [f'a_{j}' for j in range(i+1)]
-    assert SinExpDecay().parameters() == ['amplitude', 'frequency', 'phase', 'offset', 'decay']
-    assert SinGaussDecay().parameters() == ['amplitude', 'frequency', 'phase', 'offset', 'decay']
+    assert SinExpDecay().parameters() == ['amplitude', 'frequency', 'phase', 'offset', 'decay_time']
+    assert SinGaussDecay().parameters() == ['amplitude', 'frequency', 'phase', 'offset', 'decay_time']
 

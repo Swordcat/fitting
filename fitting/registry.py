@@ -1,7 +1,8 @@
-from .FitModels import Fermi, Gaussian, InvCoshSq, Linear, Lorentzian, Oscillation, Polynomial, SinExpDecay, SinGaussDecay
+from .FitModels import Exponential, Fermi, Gaussian, InvCoshSq, Linear, Lorentzian, Oscillation, Polynomial, SinExpDecay, SinGaussDecay
 
 
 REGISTERED_MODELS = [
+    Exponential,
     Fermi,
     Gaussian,
     InvCoshSq,
