@@ -1,4 +1,5 @@
 from .. import Fermi
+from .. import Gaussian
 from .. import Linear
 from .. import Polynomial
 import numpy as np
@@ -7,9 +8,9 @@ import numpy as np
 def check_model_fit(model, noise, x_0, x_1, x_n, *args):
     x = np.linspace(x_0, x_1, x_n)
     y = model.generate_noisy_data(noise, x, *args)
-    popt, perr, _ = model.fit(x, y)
-    print(model.guess(x,y))
-    print(args)
+    guess = model.guess(x, y)
+    bounds = model.bounds(x, y, guess)
+    popt, perr, _ = model.fit(x, y, guess=guess, bounds=bounds)
 
     # passes if difference between fitted and real value of parameter is within two times the 'error' on fitted value
     for i, (opt, err) in enumerate(zip(popt, perr)):
@@ -38,4 +39,12 @@ def test_fermi_fit():
     check_model_fit(Fermi(), 0.2, -20, 20, 1000, -0.8, 2, 10, -5)
     check_model_fit(Fermi(), 0.3, -20, 20, 1000, -0.8, 2, 10, -5)
     check_model_fit(Fermi(), 3, -20, 20, 1000, 10, 4, 10, -5)
+
+def test_fermi_fit():
+    check_model_fit(Gaussian(), 0.2, -20, 20, 1000, 0.8, 2, 0.1, 5)
+    check_model_fit(Gaussian(), 0.2, -20, 20, 1000, -0.8, 2, 0.1, -5)
+    check_model_fit(Gaussian(), 0.2, -20, 20, 1000, -0.8, 2, 10, -5)
+    check_model_fit(Gaussian(), 0.3, -20, 20, 1000, -0.8, 2, 10, -5)
+    check_model_fit(Gaussian(), 3, -20, 20, 1000, 10, 4, 10, -5)
+
 

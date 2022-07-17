@@ -28,7 +28,7 @@ class Fitting:
         plt.figure()
         plt.plot(x, y, label='data')
         if self.result is not None: plt.plot(x, self.model.function(x, *self.result.values()), label=f'Fit:\n{self.result.to_text(".3e")}')
-        plt.plot(x, self.model.function(x, *self.guess), label='guess')
+        plt.plot(x, self.model.function(x, *self.guess), 'C3', label='guess')
         plt.legend()
 
     def _guess(self, x: array, y: array):
