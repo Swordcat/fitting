@@ -23,13 +23,19 @@ class Fitting:
         if plot: self.plot(x, y)
         return popt, perr, pcov
 
-    def plot(self, x: array, y: array):
+    def plot(self, x: array, y: array, close_old: bool = True, show: bool = True, save: bool = False):
         self._guess(x, y)
-        plt.figure()
+        if close_old: plt.close(self.model.name)
+        plt.figure(self.model.name)
         plt.plot(x, y, label='data')
         if self.result is not None: plt.plot(x, self.model.function(x, *self.result.values()), label=f'Fit:\n{self.result.to_text(".3e")}')
         plt.plot(x, self.model.function(x, *self.guess), 'C3', label='guess')
         plt.legend()
+        if show: plt.show()
+        if save: self.save_figure()
+
+    def save_figure(self):
+        pass
 
     def _guess(self, x: array, y: array):
         self.guess = self.guess if self.guess else self.model.guess(x, y)
