@@ -2,7 +2,6 @@ from .FitModels import BaseFitModel, Fermi, Gaussian, Linear, Lorentzian, Polyno
 
 
 REGISTERED_MODELS = [
-    BaseFitModel,
     Fermi,
     Gaussian,
     Linear,
