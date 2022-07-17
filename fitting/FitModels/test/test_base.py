@@ -1,4 +1,4 @@
-from .. import BaseFitModel, Linear, Polynomial
+from .. import BaseFitModel, Fermi, Gaussian, InvCoshSq, Linear, Lorentzian, Oscillation, Polynomial, SinExpDecay, SinGaussDecay
 
 
 def test_name():
@@ -17,5 +17,14 @@ def test_name():
 
 def test_parameters():
     assert BaseFitModel.parameters() == ['args']
+    assert Fermi().parameters() == ['height', 'sigma', 'offset', 'step']
+    assert Gaussian().parameters() == ['height', 'sigma', 'offset', 'location']
+    assert InvCoshSq().parameters() == ['height', 'sigma', 'offset', 'location']
     assert Linear().parameters() == ['a', 'b']
-    assert Polynomial(order=4)().parameters() == ['a_0', 'a_1', 'a_2', 'a_3', 'a_4']
+    assert Lorentzian().parameters() == ['height', 'sigma', 'offset', 'location']
+    assert Oscillation().parameters() == ['amplitude', 'frequency', 'phase', 'offset']
+    for i in range(2,7):
+        assert Polynomial(order=i)().parameters() == [f'a_{j}' for j in range(i+1)]
+    assert SinExpDecay().parameters() == ['amplitude', 'frequency', 'phase', 'offset', 'decay']
+    assert SinGaussDecay().parameters() == ['amplitude', 'frequency', 'phase', 'offset', 'decay']
+

@@ -1,8 +1,9 @@
 from .. import Fermi
 from .. import Gaussian
+from .. import InvCoshSq
 from .. import Linear
 from .. import Lorentzian
-from .. import InvCoshSq
+from .. import Oscillation, SinExpDecay, SinGaussDecay
 from .. import Polynomial
 import numpy as np
 
@@ -36,10 +37,10 @@ def test_polynomial_fit():
 
 
 def test_fermi_fit():
-    check_model_fit(Fermi(), 0.2, -20, 20, 1000, 0.8, 2, 0.1, 5)
-    check_model_fit(Fermi(), 0.2, -20, 20, 1000, -0.8, 2, 0.1, -5)
-    check_model_fit(Fermi(), 0.2, -20, 20, 1000, -0.8, 2, 10, -5)
-    check_model_fit(Fermi(), 0.3, -20, 20, 1000, -0.8, 2, 10, -5)
+    check_model_fit(Fermi(), 0.1, -20, 20, 1000, 0.8, 2, 0.1, 5)
+    check_model_fit(Fermi(), 0.1, -20, 20, 1000, -0.8, 2, 0.1, -5)
+    check_model_fit(Fermi(), 0.1, -20, 20, 1000, -0.8, 2, 10, -5)
+    check_model_fit(Fermi(), 0.1, -20, 20, 1000, -0.8, 2, 10, -5)
     check_model_fit(Fermi(), 3, -20, 20, 1000, 10, 4, 10, -5)
 
 
@@ -63,3 +64,27 @@ def test_invcoshsq_fit():
     check_model_fit(InvCoshSq(), 0.1, -20, 20, 1000, -0.8, 2, 10, -5)
     check_model_fit(InvCoshSq(), 0.1, -20, 20, 1000, -0.8, 2, 10, -5)
     check_model_fit(InvCoshSq(), 3, -20, 20, 1000, 10, 4, 10, -5)
+
+
+def test_oscillation_fit():
+    check_model_fit(Oscillation(), 0.2, -20, 20, 1000, 0.8, 2, 0.1, 5)
+    check_model_fit(Oscillation(), 0.1, -20, 20, 1000, 0.8, 2, 0.1, -5)
+    check_model_fit(Oscillation(), 0.1, -20, 20, 1000, 0.8, 2, 10 % (2*np.pi), -5)
+    check_model_fit(Oscillation(), 0.1, -20, 20, 1000, 0.8, 2, 10 % (2*np.pi), -5)
+    check_model_fit(Oscillation(), 3, -20, 20, 1000, 10, 4, 10 % (2*np.pi), -5)
+
+
+def test_sinexpdecay_fit():
+    check_model_fit(SinExpDecay(), 0.2, 0, 40, 1000, 0.8, 2, 0.1, 5, 14)
+    check_model_fit(SinExpDecay(), 0.1, 0, 40, 1000, 0.8, 0.3, 0.7, -5, 14)
+    check_model_fit(SinExpDecay(), 0.1, 0, 40, 1000, 0.8, 2, 10 % (2*np.pi), -5, 8)
+    check_model_fit(SinExpDecay(), 0.1, 0, 40, 1000, 0.8, 10, 10 % (2*np.pi), -5, 3)
+    check_model_fit(SinExpDecay(), 3.0, 0, 40, 1000, 10, 4, 10 % (2*np.pi), -5, 6)
+
+
+def test_singaussdecay_fit():
+    check_model_fit(SinGaussDecay(), 0.2, 0, 40, 1000, 0.8, 2, 0.1, 5, 14)
+    check_model_fit(SinGaussDecay(), 0.1, 0, 40, 1000, 0.8, 0.3, 0.7, -5, 14)
+    check_model_fit(SinGaussDecay(), 0.1, 0, 40, 1000, 0.8, 2, 10 % (2*np.pi), -5, 8)
+    check_model_fit(SinGaussDecay(), 0.1, 0, 40, 1000, 0.8, 10, 10 % (2*np.pi), -5, 3)
+    check_model_fit(SinGaussDecay(), 3.0, 0, 40, 1000, 10, 4, 10 % (2*np.pi), -5, 6)
