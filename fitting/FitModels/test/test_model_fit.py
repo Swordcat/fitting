@@ -1,6 +1,7 @@
 from .. import Fermi
 from .. import Gaussian
 from .. import Linear
+from .. import Lorentzian
 from .. import Polynomial
 import numpy as np
 
@@ -40,11 +41,17 @@ def test_fermi_fit():
     check_model_fit(Fermi(), 0.3, -20, 20, 1000, -0.8, 2, 10, -5)
     check_model_fit(Fermi(), 3, -20, 20, 1000, 10, 4, 10, -5)
 
-def test_fermi_fit():
+
+def test_gaussian_fit():
     check_model_fit(Gaussian(), 0.2, -20, 20, 1000, 0.8, 2, 0.1, 5)
     check_model_fit(Gaussian(), 0.2, -20, 20, 1000, -0.8, 2, 0.1, -5)
     check_model_fit(Gaussian(), 0.2, -20, 20, 1000, -0.8, 2, 10, -5)
     check_model_fit(Gaussian(), 0.3, -20, 20, 1000, -0.8, 2, 10, -5)
     check_model_fit(Gaussian(), 3, -20, 20, 1000, 10, 4, 10, -5)
 
-
+def test_lorentzian_fit():
+    check_model_fit(Lorentzian(), 0.2, -20, 20, 1000, 0.8, 2, 0.1, 5)
+    check_model_fit(Lorentzian(), 0.2, -20, 20, 1000, -0.8, 2, 0.1, -5)
+    check_model_fit(Lorentzian(), 0.2, -20, 20, 1000, -0.8, 2, 10, -5)
+    check_model_fit(Lorentzian(), 0.3, -20, 20, 1000, -0.8, 2, 10, -5)
+    check_model_fit(Lorentzian(), 3, -20, 20, 1000, 10, 4, 10, -5)

@@ -1,6 +1,7 @@
 from .base import BaseFitModel
 from numpy import array
 
+
 class Linear(BaseFitModel):
     @classmethod
     def function(cls, x: array, a: float, b: float) -> array:
