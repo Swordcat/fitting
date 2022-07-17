@@ -1,4 +1,5 @@
 from numpy import array
+from os import getcwd
 from typing import Union
 import matplotlib.pyplot as plt
 
@@ -20,7 +21,7 @@ class Fitting:
         self._guess(x, y), self._bounds(x, y)
         popt, perr, pcov = self.model.fit(x, y, self.guess, self.bounds)
         self.result = self.model.dataclass()(*[Parameter(i, j) for i, j in zip(popt, perr)])
-        if plot: self.plot(x, y)
+        if plot: self.plot(x, y, show=False)
         return popt, perr, pcov
 
     def plot(self, x: array, y: array, close_old: bool = True, show: bool = True, save: bool = False):
@@ -32,10 +33,17 @@ class Fitting:
         plt.plot(x, self.model.function(x, *self.guess), 'C3', label='guess')
         plt.legend()
         if show: plt.show()
-        if save: self.save_figure()
+        if save: return self.save_figure()
 
-    def save_figure(self):
-        pass
+    def save_figure(self, xlabel:str = None, ylabel:str = None, title:str = None, path:str = '', name: str = ''):
+        plt.figure(self.model.name)
+        if xlabel: plt.xlabel(xlabel)
+        if ylabel: plt.ylabel(ylabel)
+        if title: plt.title(title)
+        plt.tight_layout()
+        file_path = f"{path if path else getcwd()}/{name if name else self.model.name}.png"
+        plt.savefig(file_path, dpi=150)
+        return file_path
 
     def _guess(self, x: array, y: array):
         self.guess = self.guess if self.guess else self.model.guess(x, y)
